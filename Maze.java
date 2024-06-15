@@ -16,23 +16,29 @@ public class Labirinto {
         return percorreLabirinto(labirinto, 0 ,0);
     }
     
-    private boolean percorreLabirinto(char[][] lab, int i, int j) {
+ private boolean percorreLabirinto(char[][] lab, int i, int j) {
         if(lab[i][j] == 'D') return true;
         lab[i][j] = 'O';
+        
+        boolean cima = false;
+        boolean baixo = false;
+        boolean direita = false;
+        boolean esquerda = false;
+        
         if(j+1 <= labirinto[i].length-1 && (labirinto[i][j+1] == ' ' || labirinto[i][j+1] == 'D')) {
-            return percorreLabirinto(lab,i,j+1);
+            direita = percorreLabirinto(lab,i,j+1);
         }
         if(j-1 >= 0 && (labirinto[i][j-1] == ' ' || labirinto[i][j-1] == 'D')) {
-            return percorreLabirinto(lab,i,j-1);
+            esquerda =  percorreLabirinto(lab,i,j-1);
         }
         if(i+1 <= labirinto.length-1 && (labirinto[i+1][j] == ' '|| labirinto[i+1][j] == 'D')) {
-            return percorreLabirinto(lab,i+1,j);
+            cima = percorreLabirinto(lab,i+1,j);
         }
         if(i-1 >= 0 && (labirinto[i-1][j] == ' ' || labirinto[i-1][j] == 'D')) {
-            return percorreLabirinto(lab,i-1,j);
+            baixo = percorreLabirinto(lab,i-1,j);
         }
         
-        return false;
+        return esquerda || direita || cima || baixo;
     }
     
     public void criaLabirinto(String fileName) {
